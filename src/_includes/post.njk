@@ -1,24 +1,114 @@
 ---
 layout: base.njk
 ---
-<div class="post-layout">
-    <article class="blog-post">
-        <header class="post-header">
+
+<article class="post-page" id="post-top">
+
+    <!-- ===== POST ARTICLE ===== -->
+    <div class="post-article">
+
+        <!-- Post head -->
+        <header class="post-head">
+            <div class="post-head-label">
+                <span class="post-category">
+                    {% if tags %}{{ tags[1] | default("Article") }}{% else %}Article{% endif %}
+                </span>
+                <div class="post-head-divider"></div>
+            </div>
+
             <h1>{{ title }}</h1>
-            <!-- Eleventy automatically formats dates -->
-            <p class="post-date">Published on: {{ date.toDateString() }}</p> 
+
+            {% if description %}
+            <p class="post-head-desc">{{ description }}</p>
+            {% endif %}
+
+            <div class="post-meta">
+                <span class="post-meta-author">Parth</span>
+                <span class="post-meta-sep">·</span>
+                <time datetime="{{ date | htmlDateString }}">
+                    {{ date | readableDate if date else "Recently" }}
+                </time>
+                <span class="post-meta-sep">·</span>
+                <span id="reading-time">Loading…</span>
+            </div>
         </header>
 
-        <div class="post-content">
+        <!-- In-content ad (top of article, before content) -->
+        <div class="ad-slot in-article-ad" aria-label="Advertisement">
+            <p class="ad-label">Advertisement</p>
+            <p class="ad-label-sub">Google AdSense — paste ad unit here</p>
+            <!-- AdSense unit: replace with your <ins class="adsbygoogle"> block -->
+        </div>
+
+        <!-- Post content -->
+        <div class="post-content" id="post-content">
             {{ content | safe }}
         </div>
-    </article>
 
-    <!-- Sidebar for Desktop / Bottom for Mobile -->
-    <aside class="sidebar">
-        <div class="ad-slot vertical-ad">
-            <p class="ad-label">Advertisement</p>
-            <!-- Paste Vertical Google Ad here later -->
+        <!-- Post footer -->
+        <footer class="post-footer">
+            <!-- Tags -->
+            {% if tags %}
+            <div class="post-tags">
+                <span class="post-tags-label">Tags</span>
+                {% for tag in tags %}
+                    {% if tag != "post" %}
+                    <a href="#" class="post-tag-pill">{{ tag }}</a>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <!-- Share -->
+            <div class="post-share">
+                <span class="share-label">Share</span>
+                <button class="share-btn" onclick="sharePost('twitter')">
+                    𝕏 Twitter
+                </button>
+                <button class="share-btn" onclick="sharePost('copy')">
+                    📋 Copy Link
+                </button>
+            </div>
+        </footer>
+    </div>
+
+    <!-- ===== SIDEBAR ===== -->
+    <aside class="post-aside" aria-label="Sidebar">
+        <div class="post-aside-inner">
+
+            <!-- Table of Contents -->
+            <div class="toc" id="toc" aria-label="Table of contents">
+                <p class="toc-title">In This Article</p>
+                <ul class="toc-list" id="toc-list">
+                    <!-- Populated by JS -->
+                </ul>
+            </div>
+
+            <!-- Vertical Ad -->
+            <div class="ad-slot vertical-ad" aria-label="Advertisement">
+                <p class="ad-label">Advertisement</p>
+                <p class="ad-label-sub">300 × 600</p>
+                <!-- AdSense unit: replace with your <ins class="adsbygoogle"> block -->
+            </div>
+
         </div>
     </aside>
-</div>
+
+</article>
+
+<script>
+// Share handler
+function sharePost(platform) {
+    const url = window.location.href;
+    const title = document.title;
+    if (platform === 'twitter') {
+        window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`, '_blank');
+    } else if (platform === 'copy') {
+        navigator.clipboard.writeText(url).then(() => {
+            const btn = event.target;
+            btn.textContent = '✓ Copied!';
+            setTimeout(() => btn.textContent = '📋 Copy Link', 2000);
+        });
+    }
+}
+</script>

@@ -1,34 +1,149 @@
 ---
 layout: base.njk
-title: Parth Posts - Home
+title: Parth Posts — Tech, AI & Web Development
+description: Deep dives into Artificial Intelligence, web development, and the tools shaping our digital world.
 ---
+
+<!-- ===== HERO ===== -->
 <section class="hero">
-    <div class="hero-content">
-        <h1>Welcome to <span class="highlight">Parth Posts</span></h1>
-        <p>Your go-to source for deep dives into Artificial Intelligence, web development, and maximizing your digital workflow.</p>
+    <div class="container">
+        <p class="hero-eyebrow animate-fade-up">Est. 2026</p>
+        <h1 class="animate-fade-up animate-delay-1">
+            Writing on <em>AI</em>, Code<br>& Digital Craft
+        </h1>
+        <p class="hero-desc animate-fade-up animate-delay-2">
+            Honest, deep-dive articles on artificial intelligence, web development, and the tools reshaping how we work and build online.
+        </p>
+        <div class="hero-meta animate-fade-up animate-delay-3">
+            <span class="hero-meta-item">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                {{ collections.post | length }} Articles
+            </span>
+            <span class="hero-meta-dot"></span>
+            <span class="hero-meta-item">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                Updated Regularly
+            </span>
+            <span class="hero-meta-dot"></span>
+            <span class="hero-meta-item">By Parth</span>
+        </div>
     </div>
 </section>
 
-<div class="ad-slot horizontal-ad">
-    <p class="ad-label">Advertisement</p>
-    <!-- Paste Horizontal Google Ad here later -->
+<!-- ===== TOP BANNER AD ===== -->
+<div class="banner-ad-wrap">
+    <div class="container">
+        <div class="ad-slot horizontal-ad" aria-label="Advertisement">
+            <p class="ad-label">Advertisement</p>
+            <!-- AdSense horizontal unit: replace with your <ins class="adsbygoogle"> block (728×90 leaderboard) -->
+        </div>
+    </div>
 </div>
 
-<section class="blog-feed">
-    <h2 class="section-title">Latest Articles</h2>
-    <div class="grid">
-        {% for post in collections.post | reverse %}
-        <article class="card">
-            <div class="card-content">
-                <span class="card-tag">Tech & AI</span>
-                <h3><a href="{{ post.url | url }}">{{ post.data.title }}</a></h3>
-                <p class="card-desc">{{ post.data.description }}</p>
-                <div class="card-footer">
-                    <span class="card-date">{{ post.date.toDateString() }}</span>
-                    <a href="{{ post.url | url }}" class="read-more">Read Article &rarr;</a>
+<!-- ===== MAIN HOMEPAGE LAYOUT ===== -->
+<div class="container">
+    <div class="homepage-layout">
+
+        <!-- ===== FEED MAIN ===== -->
+        <div class="feed-main">
+
+            {% set posts = collections.post | reverse %}
+
+            {% if posts | length > 0 %}
+
+            <!-- Featured post (first/latest) -->
+            <p class="section-label">
+                <span class="section-label-num">01</span>
+                Featured
+            </p>
+
+            {% set featuredPost = posts[0] %}
+            <a href="{{ featuredPost.url | url }}" class="post-featured animate-fade-up">
+                <div class="post-featured-img-placeholder">
+                    Featured Article
+                </div>
+                <span class="post-tag">Tech &amp; AI</span>
+                <h2>{{ featuredPost.data.title }}</h2>
+                <p class="post-desc">{{ featuredPost.data.description }}</p>
+                <div class="post-byline">
+                    <span>By Parth</span>
+                    <span class="byline-divider">·</span>
+                    <time>{{ featuredPost.date.toDateString() }}</time>
+                    <span class="read-link">Read Article →</span>
+                </div>
+            </a>
+
+            <!-- Remaining posts as list -->
+            {% if posts | length > 1 %}
+            <p class="section-label" style="margin-top: 0;">
+                <span class="section-label-num">02</span>
+                Latest Articles
+            </p>
+
+            <div class="post-list">
+                {% for post in posts %}
+                {% if loop.index > 1 %}
+                <a href="{{ post.url | url }}" class="post-item">
+                    <div>
+                        <div class="post-item-num">0{{ loop.index }}</div>
+                        <h3>{{ post.data.title }}</h3>
+                        <p class="card-desc" style="font-size:0.875rem; margin-bottom:4px;">{{ post.data.description }}</p>
+                        <time class="post-item-date">{{ post.date.toDateString() }}</time>
+                    </div>
+                    <div class="post-item-thumb-placeholder"></div>
+                </a>
+                {% endif %}
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            {% else %}
+            <!-- Empty state -->
+            <div style="padding: 60px 0; text-align: center; color: var(--text-muted);">
+                <p style="font-family: var(--font-display); font-size: 1.4rem; margin-bottom: 8px;">No posts yet.</p>
+                <p style="font-size: 0.9rem;">Add <code>.md</code> files to <code>src/posts/</code> to get started.</p>
+            </div>
+            {% endif %}
+
+        </div>
+
+        <!-- ===== FEED SIDEBAR ===== -->
+        <aside class="feed-sidebar" aria-label="Sidebar">
+
+            <!-- Square / Rectangle Ad -->
+            <div class="sidebar-widget">
+                <div class="ad-slot sidebar-ad" aria-label="Advertisement">
+                    <p class="ad-label">Advertisement</p>
+                    <p class="ad-label-sub">300 × 250</p>
+                    <!-- AdSense medium rectangle: paste your <ins class="adsbygoogle"> block here -->
                 </div>
             </div>
-        </article>
-        {% endfor %}
+
+            <!-- About widget -->
+            <div class="sidebar-widget about-widget">
+                <p class="widget-title">About</p>
+                <p class="about-widget-name">Parth</p>
+                <p>
+                    Writing about AI tools, web development, and the evolving digital landscape.
+                    All articles are independently written and researched.
+                </p>
+            </div>
+
+            <!-- Topics -->
+            <div class="sidebar-widget">
+                <p class="widget-title">Topics</p>
+                <div class="topic-list">
+                    <a href="#" class="topic-tag">Artificial Intelligence</a>
+                    <a href="#" class="topic-tag">Web Dev</a>
+                    <a href="#" class="topic-tag">Gemini</a>
+                    <a href="#" class="topic-tag">SEO</a>
+                    <a href="#" class="topic-tag">Productivity</a>
+                    <a href="#" class="topic-tag">Tools</a>
+                    <a href="#" class="topic-tag">Static Sites</a>
+                </div>
+            </div>
+
+        </aside>
+
     </div>
-</section>
+</div>
