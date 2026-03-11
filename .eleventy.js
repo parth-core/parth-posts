@@ -20,6 +20,7 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addFilter("limit", (array, n) => array.slice(0, n));
 
   return {
+    pathPrefix: "/parth-posts/",
     dir: {
       input:    'src',
       output:   '_site',
