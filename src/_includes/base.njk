@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title | default("Parth Posts - Tech & AI") }}</title>
+    <meta name="description" content="{{ description | default('A blog by Parth about AI, Tech, and Web Development.') }}">
+    
+    <!-- Modern Google Font: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+    
+    <!-- Google AdSense Script (Paste your script here when approved) -->
+    <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> -->
+</head>
+<body>
+    <header class="site-header">
+        <div class="container header-nav">
+            <a href="/" class="logo">Parth Posts<span class="dot">.</span></a>
+            <nav class="nav-links">
+                <a href="/">Home</a>
+                <a href="#">About</a>
+                <button id="theme-toggle" class="theme-btn">🌙</button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        {{ content | safe }}
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2024 Parth Posts. Built with pure code.</p>
+        </div>
+    </footer>
+
+    <script src="/js/main.js"></script>
+</body>
+</html>

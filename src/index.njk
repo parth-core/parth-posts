@@ -1,0 +1,34 @@
+---
+layout: base.njk
+title: Parth Posts - Home
+---
+<section class="hero">
+    <div class="hero-content">
+        <h1>Welcome to <span class="highlight">Parth Posts</span></h1>
+        <p>Your go-to source for deep dives into Artificial Intelligence, web development, and maximizing your digital workflow.</p>
+    </div>
+</section>
+
+<div class="ad-slot horizontal-ad">
+    <p class="ad-label">Advertisement</p>
+    <!-- Paste Horizontal Google Ad here later -->
+</div>
+
+<section class="blog-feed">
+    <h2 class="section-title">Latest Articles</h2>
+    <div class="grid">
+        {% for post in collections.post | reverse %}
+        <article class="card">
+            <div class="card-content">
+                <span class="card-tag">Tech & AI</span>
+                <h3><a href="{{ post.url }}">{{ post.data.title }}</a></h3>
+                <p class="card-desc">{{ post.data.description }}</p>
+                <div class="card-footer">
+                    <span class="card-date">{{ post.date.toDateString() }}</span>
+                    <a href="{{ post.url }}" class="read-more">Read Article &rarr;</a>
+                </div>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+</section>
